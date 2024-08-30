@@ -30,7 +30,11 @@ public class UsoEmpleado {
 		+ " fecha de alta: " + empleado3.getAltaContrato());
 		 */
 		
-		Empleado[] misEmpleados = new Empleado[4]; 
+		Jefatura jefe_RRHH = new Jefatura("Steve", 55000, 2006, 9, 25);
+		
+		jefe_RRHH.setIncentivo(2570);
+				
+		Empleado[] misEmpleados = new Empleado[6]; 
 		
 		
 		misEmpleados[0] = new Empleado("Paco Gómez", 85000, 1990, 12, 17);
@@ -41,6 +45,10 @@ public class UsoEmpleado {
 		
 		misEmpleados[3] = new Empleado("Fernando Fernández");
 		
+		misEmpleados[4] = jefe_RRHH;
+		
+		misEmpleados[5] = new Jefatura("Maria Becerra", 95000, 1999, 5, 26);
+				
 		
 		for(Empleado empl: misEmpleados) {
 			empl.subirSueldo(5);					
@@ -67,6 +75,10 @@ class Empleado {
 		GregorianCalendar calendario = new GregorianCalendar(anio, mes-1, dia);
 		
 		altaContrato = calendario.getTime(); 
+		
+		Id = IdSiguiente;
+		
+		IdSiguiente++;
 				
 	}
 	
@@ -75,7 +87,7 @@ class Empleado {
 	}
 	
 	public String getNombre() {
-		return nombre;
+		return nombre + " Id: " + Id;
 	}
 	
 	public double getSueldo() {
@@ -98,5 +110,32 @@ class Empleado {
 	private double sueldo;
 	
 	private Date altaContrato;
+	
+	private int Id;
+	
+	private static int IdSiguiente = 1;
 		
 }
+
+class Jefatura extends Empleado {
+	
+	public Jefatura(String nom, double sueld, int anio, int mes, int dia) {
+		super(nom, sueld, anio, mes, dia);
+	}
+	
+	public void setIncentivo(double b) {
+		incentivo = b;
+	}
+	
+	public double getSueldo() {
+		double sueldoJefe = super.getSueldo();
+		
+		return sueldoJefe + incentivo;
+	}
+	
+	private double incentivo;
+	
+	
+}
+
+
