@@ -48,6 +48,11 @@ public class UsoEmpleado {
 		misEmpleados[4] = jefe_RRHH;
 		
 		misEmpleados[5] = new Jefatura("Maria Becerra", 95000, 1999, 5, 26);
+		
+		Jefatura jefe_Finanzas = (Jefatura) misEmpleados[5];
+		
+		jefe_Finanzas.setIncentivo(500);
+				
 				
 		
 		for(Empleado empl: misEmpleados) {
@@ -134,8 +139,8 @@ class Jefatura extends Empleado {
 	}
 	
 	private double incentivo;
-	
-	
+		
 }
+
 
 
