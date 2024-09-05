@@ -1,5 +1,6 @@
 package poo;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -51,13 +52,15 @@ public class UsoEmpleado {
 		
 		Jefatura jefe_Finanzas = (Jefatura) misEmpleados[5];
 		
-		jefe_Finanzas.setIncentivo(500);
-				
-				
+		jefe_Finanzas.setIncentivo(500);				
+		
+		System.out.println(jefe_Finanzas.tomar_desisiones("Dar más días de vacaciones a los empleados"));
 		
 		for(Empleado empl: misEmpleados) {
-			empl.subirSueldo(5);					
+			empl.subirSueldo(5); 
 		}
+		
+		Arrays.sort(misEmpleados);
 		
 		for(Empleado empl: misEmpleados) {
 			System.out.println("Nombre " + empl.getNombre() + " sueldo: " + empl.getSueldo()
@@ -69,7 +72,7 @@ public class UsoEmpleado {
 
 
 
-class Empleado {
+class Empleado implements Comparable {
 		
 	public Empleado(String nom, double sueld, int anio, int mes, int dia) {
 		
@@ -108,6 +111,17 @@ class Empleado {
 		
 		sueldo += aumento;
 	}
+	
+	public int compareTo(Object miObjeto) {
+		Empleado otroEmpleado =(Empleado) miObjeto;
+		
+		if(this.sueldo < otroEmpleado.sueldo)
+			return -1;
+		if(this.sueldo > otroEmpleado.sueldo)
+			return 1;
+		
+		return 0;
+	}	
 
 
 	private String nombre;
@@ -119,13 +133,19 @@ class Empleado {
 	private int Id;
 	
 	private static int IdSiguiente = 1;
+
+	
 		
 }
 
-class Jefatura extends Empleado {
+class Jefatura extends Empleado implements Jefes {
 	
 	public Jefatura(String nom, double sueld, int anio, int mes, int dia) {
 		super(nom, sueld, anio, mes, dia);
+	}
+	
+	public String tomar_desisiones(String decision) {
+		return "Un miembro de la dirección a tomado la decisión: " + decision;
 	}
 	
 	public void setIncentivo(double b) {
