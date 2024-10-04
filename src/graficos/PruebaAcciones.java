@@ -39,11 +39,19 @@ class PanelAccion extends JPanel{
 	
 	public PanelAccion() {
 		
-		AccionColor accionAmarillo = new AccionColor("Amarillo", new ImageIcon("src/graficos/carro.png"), Color.YELLOW);
+		AccionColor accionAmarillo = new AccionColor("Amarillo", new ImageIcon("src/graficos/volcan.jpg"), Color.YELLOW);
 		
-		AccionColor accionAzul = new AccionColor("Azul", new ImageIcon("src/graficos/carro.png"), Color.BLUE);
+		AccionColor accionAzul = new AccionColor("Azul", new ImageIcon("src/graficos/volcan.jpg"), Color.BLUE);
 		
-		AccionColor accionRojo = new AccionColor("Rojo", new ImageIcon("src/graficos/carro.png"), Color.RED);
+		AccionColor accionRojo = new AccionColor("Rojo", new ImageIcon("src/graficos/volcan.jpg"), Color.RED);
+		
+		// JButton botonAmarillo = new JButton(accionAmarillo);
+		
+		add(new JButton(accionAmarillo));
+		
+		add(new JButton(accionAzul));
+		
+		add(new JButton(accionRojo));
 		
 		/*
 		
@@ -56,28 +64,34 @@ class PanelAccion extends JPanel{
 		add(botonRojo);
 		*/
 	}
+	
+	private class AccionColor extends AbstractAction{
+
+		public AccionColor(String nombre, Icon icono, Color color_boton) {
+			
+			putValue(Action.NAME, nombre);
+			
+			putValue(Action.SMALL_ICON, icono);
+			
+			putValue(Action.SHORT_DESCRIPTION, "Poner la lámina de color "  + nombre);
+			
+			putValue("color_de_fondo", color_boton);
+			
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			 
+			Color c = (Color) getValue("color_de_fondo");
+			
+			setBackground(c);	
+			
+			System.out.println("Nombre: " + getValue(Action.NAME) + " descripción " + getValue(Action.SHORT_DESCRIPTION));
+		}
+		
+	}
 }
 
 
-class AccionColor extends AbstractAction{
 
-	public AccionColor(String nombre, Icon icono, Color color_boton) {
-		
-		putValue(Action.NAME, nombre);
-		
-		putValue(Action.SMALL_ICON, icono);
-		
-		putValue(Action.SHORT_DESCRIPTION, "Poner la lámina de color "  + nombre);
-		
-		putValue("color_de_fondo", color_boton);
-		
-	}
-	
-	public void actionPerformed(ActionEvent e) {
-		 
-		
-	}
-	
-}
 
 
