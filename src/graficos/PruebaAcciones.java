@@ -53,6 +53,27 @@ class PanelAccion extends JPanel{
 		
 		add(new JButton(accionRojo));
 		
+		InputMap mapaEntrada = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		
+		//KeyStroke teclaAmarillo = KeyStroke.getKeyStroke("ctrl A");
+		
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl A"), "fondo_amarillo");
+		
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl T"), "fondo_amarillo");
+		
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl B"), "fondo_azul");
+		
+		mapaEntrada.put(KeyStroke.getKeyStroke("ctrl R"), "fondo_rojo");
+		
+		ActionMap mapaAccion = getActionMap();
+		
+		mapaAccion.put("fondo_amarillo", accionAmarillo);
+		
+		mapaAccion.put("fondo_azul", accionAzul);
+		
+		mapaAccion.put("fondo_rojo", accionRojo);
+		
+		
 		/*
 		
 		JButton botonAmarrillo = new JButton("Amarillo");
