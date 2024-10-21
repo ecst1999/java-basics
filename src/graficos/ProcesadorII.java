@@ -52,28 +52,28 @@ class LaminaProcesador extends JPanel{
 		
 		//------------------------------------------------
 		
-		configuraMenu("Arial", "fuente", "Arial", Font.PLAIN, 1);
+		configuraMenu("Arial", "fuente", "Arial", 9, 10);
 		
-		configuraMenu("Cascadia Code", "fuente", "Cascadia Code", Font.PLAIN, 1);
+		configuraMenu("Cascadia Code", "fuente", "Cascadia Code", 9, 10);
 		
-		configuraMenu("Verdana", "fuente", "Verdana", Font.PLAIN, 1);
+		configuraMenu("Verdana", "fuente", "Verdana", 9, 10);
 		
-		
-		//------------------------------------------------		
-		
-		configuraMenu("Negrita", "estilo", "", Font.PLAIN, 1);
-		
-		configuraMenu("Cursiva", "estilo", "", Font.PLAIN, 1);
 		
 		//------------------------------------------------		
 		
-		configuraMenu("12", "tamanio", "", Font.PLAIN, 1);
+		configuraMenu("Negrita", "estilo", "", Font.BOLD, 10);
 		
-		configuraMenu("16", "tamanio", "", Font.PLAIN, 1);
+		configuraMenu("Cursiva", "estilo", "", Font.ITALIC, 10);
 		
-		configuraMenu("20", "tamanio", "", Font.PLAIN, 1);
+		//------------------------------------------------		
 		
-		configuraMenu("24", "tamanio", "", Font.PLAIN, 1);
+		configuraMenu("12", "tamanio", "", 9, 12);
+		
+		configuraMenu("16", "tamanio", "", 9, 16);
+		
+		configuraMenu("20", "tamanio", "", 9, 20);
+		
+		configuraMenu("24", "tamanio", "", 9, 24);
 		
 		//------------------------------------------------		
 		
@@ -102,8 +102,52 @@ class LaminaProcesador extends JPanel{
 			estilo.add(elemMenu);
 		else if(menu == "tamanio")
 			tamanio.add(elemMenu);
+		
+		elemMenu.addActionListener(new GestionaEventos(rotulo, tipoLetra, estilos, tam));
 	}
 	
+	private class GestionaEventos implements ActionListener{
+		
+		String tipoTexto, menu;
+		
+		int estiloLetra, tamanioLetra;
+		
+		public GestionaEventos(String elemento, String texto2, int estilo2, int tamLetra) {
+			tipoTexto = texto2;
+			
+			estiloLetra = estilo2;
+			
+			tamanioLetra = tamLetra;
+			
+			menu = elemento;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			letras = miarea.getFont();
+			
+			if(menu == "Arial" || menu == "Cascadia Code" || menu == "Verdana") {
+				estiloLetra = letras.getStyle();
+				tamanioLetra = letras.getSize();
+			}else if(menu == "Negrita" || menu == "Cursiva") {
+				tipoTexto = letras.getFontName();
+				tamanioLetra = letras.getSize();
+			}else if(menu == "12" || menu == "16" || menu == "20" || menu == "24") {
+				tipoTexto = letras.getFontName();
+				estiloLetra = letras.getStyle();
+			}
+				
+			
+			miarea.setFont(new Font(tipoTexto, estiloLetra, tamanioLetra));
+			
+			System.out.print("");
+			
+			
+		}
+		
+	}
 	
 	private JTextPane miarea;
 	

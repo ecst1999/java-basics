@@ -1,3 +1,4 @@
+package paquetepruebas;
 import java.util.*;
 
 public class AdivinaNumero {
