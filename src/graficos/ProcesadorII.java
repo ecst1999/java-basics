@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
@@ -62,6 +64,11 @@ class LaminaProcesador extends JPanel{
 		
 		//------------------------------------------------		
 		
+		configuraMenu("Negrita", "estilo", "", Font.BOLD, 10, "src/graficos/cortar.gif");
+		
+		configuraMenu("Cursiva", "estilo", "", Font.ITALIC, 10, "src/graficos/volcan.jpg");
+		
+		/*
 		JCheckBoxMenuItem negrita = new JCheckBoxMenuItem("Negrita", new ImageIcon("src/graficos/cortar.gif"));
 		
 		JCheckBoxMenuItem cursiva = new JCheckBoxMenuItem("Cursiva", new ImageIcon("src/graficos/volcan.jpg"));
@@ -72,7 +79,7 @@ class LaminaProcesador extends JPanel{
 		
 		estilo.add(negrita);
 		
-		estilo.add(cursiva);
+		estilo.add(cursiva);*/
 		
 		/*
 		configuraMenu("Negrita", "estilo", "", Font.BOLD, 10, "src/graficos/cortar.gif");
@@ -118,6 +125,8 @@ class LaminaProcesador extends JPanel{
 		
 		veinticuatro.addActionListener(new StyledEditorKit.FontSizeAction("cambia_tamanio", 24));
 		
+		veinticuatro.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
+		
 		tamanio.add(doce);
 		tamanio.add(dieciseis);
 		tamanio.add(veinte);
@@ -138,6 +147,23 @@ class LaminaProcesador extends JPanel{
 		miarea = new JTextPane();
 		
 		add(miarea, BorderLayout.CENTER);
+		
+		// --------------------------------------------------
+		JPopupMenu emergente = new JPopupMenu();
+		
+		JMenuItem negritaE = new JMenuItem("Negrita");
+		
+		JMenuItem cursivaE = new JMenuItem("Cursiva");
+		
+		negritaE.addActionListener(new StyledEditorKit.BoldAction());
+		
+		cursivaE.addActionListener(new StyledEditorKit.ItalicAction());
+		
+		emergente.add(negritaE);
+		
+		emergente.add(cursivaE);
+		
+		miarea.setComponentPopupMenu(emergente);
 	}
 	
 	public void configuraMenu(String rotulo, String menu, String tipoLetra, int estilos, int tam, String rutaArchivo) {
@@ -158,7 +184,17 @@ class LaminaProcesador extends JPanel{
 			}
 		}
 			
-		
+		else if(menu == "estilo") {
+			estilo.add(elemMenu);
+			
+			if(estilos == Font.BOLD) {
+				elemMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+				elemMenu.addActionListener(new StyledEditorKit.BoldAction());
+			}else if(estilos == Font.ITALIC){
+				elemMenu.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
+				elemMenu.addActionListener(new StyledEditorKit.ItalicAction());
+			}
+		}
 			
 		else if(menu == "tamanio") {
 			tamanio.add(elemMenu);
