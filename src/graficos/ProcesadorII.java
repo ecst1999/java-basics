@@ -1,6 +1,7 @@
 package graficos;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +26,7 @@ class MenuProcesador extends JFrame{
 	
 	public MenuProcesador() {
 		
-		setBounds(500, 300, 550, 400);
+		setBounds(500, 300, 550, 450);
 		
 		add(new LaminaProcesador());
 		
@@ -64,9 +65,9 @@ class LaminaProcesador extends JPanel{
 		
 		//------------------------------------------------		
 		
-		configuraMenu("Negrita", "estilo", "", Font.BOLD, 10, "src/graficos/cortar.gif");
+		configuraMenu("Negrita", "estilo", "", Font.BOLD, 10, "src/graficos/negrita.png");
 		
-		configuraMenu("Cursiva", "estilo", "", Font.ITALIC, 10, "src/graficos/volcan.jpg");
+		configuraMenu("Cursiva", "estilo", "", Font.ITALIC, 10, "src/graficos/cursiva.png");
 		
 		/*
 		JCheckBoxMenuItem negrita = new JCheckBoxMenuItem("Negrita", new ImageIcon("src/graficos/cortar.gif"));
@@ -132,7 +133,7 @@ class LaminaProcesador extends JPanel{
 		tamanio.add(veinte);
 		tamanio.add(veinticuatro);
 		
-		//------------------------------------------------		
+		// AGREGAR BARRA 
 		
 		mibarra.add(fuente);
 		
@@ -148,7 +149,7 @@ class LaminaProcesador extends JPanel{
 		
 		add(miarea, BorderLayout.CENTER);
 		
-		// --------------------------------------------------
+		// LISTA EMERGENTE CON CLIC DERECHO
 		JPopupMenu emergente = new JPopupMenu();
 		
 		JMenuItem negritaE = new JMenuItem("Negrita");
@@ -164,6 +165,109 @@ class LaminaProcesador extends JPanel{
 		emergente.add(cursivaE);
 		
 		miarea.setComponentPopupMenu(emergente);
+		
+		// AGREGAR BARRA DE HERRAMIENTAS
+		
+		/*JToolBar barraTool = new JToolBar();
+		
+		JButton negritaBarra = new JButton(new ImageIcon("src/graficos/negrita.png"));
+		
+		JButton cursivaBarra = new JButton(new ImageIcon("src/graficos/cursiva.png"));
+		
+		JButton subrayadoBarra = new JButton(new ImageIcon("src/graficos/subrayar.png"));
+		
+		JButton azulBarra = new JButton(new ImageIcon("src/graficos/azul.png"));
+		
+		JButton rojoBarra = new JButton(new ImageIcon("src/graficos/rojo.png"));
+		
+		JButton amarilloBarra = new JButton(new ImageIcon("src/graficos/amarillo.png"));
+		
+		JButton a_izquierda_barra = new JButton(new ImageIcon("src/graficos/a_izquierda.png"));
+		
+		JButton a_centrado_barra = new JButton(new ImageIcon("src/graficos/a_centrar.png"));
+		
+		JButton a_derecha_barra = new JButton(new ImageIcon("src/graficos/a_derecha.png"));
+		
+		JButton a_justificado_barra = new JButton(new ImageIcon("src/graficos/a_justificar.png"));
+		
+		negritaBarra.addActionListener(new StyledEditorKit.BoldAction());
+		
+		cursivaBarra.addActionListener(new StyledEditorKit.ItalicAction());
+		
+		subrayadoBarra.addActionListener(new StyledEditorKit.UnderlineAction());
+		
+		azulBarra.addActionListener(new StyledEditorKit.ForegroundAction("Pone_azul", Color.BLUE));
+		
+		amarilloBarra.addActionListener(new StyledEditorKit.ForegroundAction("Pone_amarillo", Color.YELLOW));
+		
+		rojoBarra.addActionListener(new StyledEditorKit.ForegroundAction("Pone_rojo", Color.RED));
+		
+		a_izquierda_barra.addActionListener(new StyledEditorKit.AlignmentAction("Izquierda", 0));
+		
+		a_centrado_barra.addActionListener(new StyledEditorKit.AlignmentAction("Centrado", 1));
+		
+		a_derecha_barra.addActionListener(new StyledEditorKit.AlignmentAction("Derecha", 2));				
+		
+		a_justificado_barra.addActionListener(new StyledEditorKit.AlignmentAction("Justificado", 3));
+		
+		barraTool.add(negritaBarra);
+		
+		barraTool.add(cursivaBarra);
+		
+		barraTool.add(subrayadoBarra);
+		
+		barraTool.add(azulBarra);
+		
+		barraTool.add(rojoBarra);
+		
+		barraTool.add(amarilloBarra);		
+		
+		barraTool.add(a_izquierda_barra);
+				
+		barraTool.add(a_centrado_barra);
+		
+		barraTool.add(a_derecha_barra);
+		
+		barraTool.add(a_justificado_barra);
+		*/
+		
+		barraTool = new JToolBar();
+		
+		configura_barra("src/graficos/negrita.png").addActionListener(new StyledEditorKit.BoldAction());
+		
+		configura_barra("src/graficos/cursiva.png").addActionListener(new StyledEditorKit.ItalicAction());
+		
+		configura_barra("src/graficos/subrayar.png").addActionListener(new StyledEditorKit.UnderlineAction());
+		
+		barraTool.addSeparator();
+		
+		configura_barra("src/graficos/azul.png").addActionListener(new StyledEditorKit.ForegroundAction("azul", Color.BLUE));
+		
+		configura_barra("src/graficos/rojo.png").addActionListener(new StyledEditorKit.ForegroundAction("rojo", Color.RED));
+		
+		configura_barra("src/graficos/amarillo.png").addActionListener(new StyledEditorKit.ForegroundAction("amarillo", Color.YELLOW));
+		
+		barraTool.addSeparator();
+		
+		configura_barra("src/graficos/a_izquierda.png").addActionListener(new StyledEditorKit.AlignmentAction("Izquierda", 0));
+		
+		configura_barra("src/graficos/a_centrar.png").addActionListener(new StyledEditorKit.AlignmentAction("Centrado", 1));
+		
+		configura_barra("src/graficos/a_derecha.png").addActionListener(new StyledEditorKit.AlignmentAction("Derecha", 2));
+		
+		configura_barra("src/graficos/a_justificar.png").addActionListener(new StyledEditorKit.AlignmentAction("Justificado", 3));
+		
+		barraTool.setOrientation(1);
+		
+		add(barraTool, BorderLayout.WEST);
+	}
+	
+	public JButton configura_barra(String ruta) {
+		JButton boton = new JButton(new ImageIcon(ruta));  
+		
+		barraTool.add(boton);
+		
+		return boton;
 	}
 	
 	public void configuraMenu(String rotulo, String menu, String tipoLetra, int estilos, int tam, String rutaArchivo) {
@@ -257,4 +361,7 @@ class LaminaProcesador extends JPanel{
 	
 	private Font letras;
 	
+	private JButton negritaBarra, cursivaBarra, subraBarra, azulBarra, rojoBarra, amarilloBarra, a_izquierda, a_centrado, a_derecha, a_justificado;
+	
+	private JToolBar barraTool;
 }
