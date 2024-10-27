@@ -49,11 +49,13 @@ class LaminaMuelle extends JPanel{
 		
 		Spring miMuelle = Spring.constant(0, 10, 100);
 		
+		Spring muelleRigido = Spring.constant(10);
+		
 		dispo.putConstraint(SpringLayout.WEST, boton1, miMuelle, SpringLayout.WEST, this);
 		
-		dispo.putConstraint(SpringLayout.WEST, boton2, miMuelle, SpringLayout.EAST, boton1);
+		dispo.putConstraint(SpringLayout.WEST, boton2, muelleRigido, SpringLayout.EAST, boton1);
 		
-		dispo.putConstraint(SpringLayout.WEST, boton3, miMuelle, SpringLayout.EAST, boton2);
+		dispo.putConstraint(SpringLayout.WEST, boton3, muelleRigido, SpringLayout.EAST, boton2);
 		
 		dispo.putConstraint(SpringLayout.EAST, this, miMuelle, SpringLayout.EAST, boton3);
 		
