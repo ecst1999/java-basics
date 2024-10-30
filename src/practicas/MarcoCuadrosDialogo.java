@@ -1,37 +1,32 @@
-package graficos;
+package practicas;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class CuadrosDialogo2 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		MarcoCuadrosDialogo2 marco = new MarcoCuadrosDialogo2();
-		
-		marco.setVisible(true);
-		
-		marco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-}
-
-
-class MarcoCuadrosDialogo2 extends JFrame{
+class MarcoCuadrosDialogo extends JFrame{
 	
-	public MarcoCuadrosDialogo2() {
+	public MarcoCuadrosDialogo() {
 		
 		setBounds(250, 250, 750, 550);
 		
 		setTitle("Prueba de dialogos");
 		
-		setLayout(new BorderLayout());
-				
-		Box fila1 = Box.createHorizontalBox();			
-		Box fila2 = Box.createHorizontalBox();
+		JPanel lamina_cuadricula = new JPanel();
+		
+		lamina_cuadricula.setLayout(new GridLayout(2, 3));
+		
+		//Cajas de botones
+		LaminaBotones tipoLamina = new LaminaBotones("Tipo");
+		LaminaBotones tipoMensajeLamina = new LaminaBotones("Tipo de mensaje");
+		LaminaBotones tipoMensajeMensajeLamina = new LaminaBotones("Mensaje");
+		LaminaBotones confirmarLamina = new LaminaBotones("Confirmar");
+		LaminaBotones opcionLamina = new LaminaBotones("Opcion");
+		LaminaBotones entradaLamina = new LaminaBotones("Entrada");
+		
 		
 		//CREACIÓN DE Columnas
 		columna1 = Box.createVerticalBox();
@@ -49,64 +44,65 @@ class MarcoCuadrosDialogo2 extends JFrame{
 		initClases();
 		
 		// Caja de opciones tipo de dialogo
-		CrearOpciones(tipo, "Mensaje", 1, t_r_mensaje, columna1, true, 1);
+		CrearOpciones(tipo, "Mensaje", 1, t_r_mensaje, columna1, true, 1, tipoLamina);
 		
-		CrearOpciones(tipo, "Confirmar", 2, t_r_confirmar, columna1, false, 1);
+		CrearOpciones(tipo, "Confirmar", 2, t_r_confirmar, columna1, false, 1, tipoLamina);
 		
-		CrearOpciones(tipo, "Opcion", 3, t_r_opcion, columna1, false, 1);
+		CrearOpciones(tipo, "Opcion", 3, t_r_opcion, columna1, false, 1, tipoLamina);
 		
-		CrearOpciones(tipo, "Entrada", 4, t_r_entrada, columna1, false, 1);		
+		CrearOpciones(tipo, "Entrada", 4, t_r_entrada, columna1, false, 1, tipoLamina);		
 		//----------------------------------------------
 		
 		// Caja de opciones tipo de dialogo
-		CrearOpciones(tipo_mensaje, "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE, t_m_error_message, columna2, true, 2);
+		CrearOpciones(tipo_mensaje, "ERROR_MESSAGE", JOptionPane.ERROR_MESSAGE, t_m_error_message, columna2, true, 2, tipoMensajeLamina);
 		
-		CrearOpciones(tipo_mensaje, "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE, t_m_information_message, columna2, false, 2);
+		CrearOpciones(tipo_mensaje, "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE, t_m_information_message, columna2, false, 2, tipoMensajeLamina);
 		
-		CrearOpciones(tipo_mensaje, "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE, t_m_warning_message, columna2, false, 2);
+		CrearOpciones(tipo_mensaje, "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE, t_m_warning_message, columna2, false, 2, tipoMensajeLamina);
 		
-		CrearOpciones(tipo_mensaje, "QUESTION_MESSAGE", JOptionPane.QUESTION_MESSAGE, t_m_question_message, columna2, false, 2);
+		CrearOpciones(tipo_mensaje, "QUESTION_MESSAGE", JOptionPane.QUESTION_MESSAGE, t_m_question_message, columna2, false, 2, tipoMensajeLamina);
 		
-		CrearOpciones(tipo_mensaje, "PLAIN_MESSAGE", JOptionPane.PLAIN_MESSAGE, t_m_plain_message, columna2, false, 2);
+		CrearOpciones(tipo_mensaje, "PLAIN_MESSAGE", JOptionPane.PLAIN_MESSAGE, t_m_plain_message, columna2, false, 2, tipoMensajeLamina);
+		
 		//----------------------------------------------
 		
 		// Caja de opciones tipo de dialogo
-		CrearOpciones(mensaje, "Cadena", 1, t_cadena, columna3, true, 3);
+		CrearOpciones(mensaje, "Cadena", 1, t_cadena, columna3, true, 3, tipoMensajeMensajeLamina);
 		
-		CrearOpciones(mensaje, "Icono", 2, t_icono, columna3, false, 3);
+		CrearOpciones(mensaje, "Icono", 2, t_icono, columna3, false, 3, tipoMensajeMensajeLamina);
 		
-		CrearOpciones(mensaje, "Componente", 3, t_componente, columna3, false, 3);
+		CrearOpciones(mensaje, "Componente", 3, t_componente, columna3, false, 3, tipoMensajeMensajeLamina);
 		
-		CrearOpciones(mensaje, "Otros", 4, t_otros, columna3, false, 3);
+		CrearOpciones(mensaje, "Otros", 4, t_otros, columna3, false, 3, tipoMensajeMensajeLamina);
 		
-		CrearOpciones(mensaje, "Object[]", 5, t_objeto, columna3, false, 3);
+		CrearOpciones(mensaje, "Object[]", 5, t_objeto, columna3, false, 3, tipoMensajeMensajeLamina);
 		//----------------------------------------------
 		
 		// Caja de opciones tipo de dialogo		
-		CrearOpciones(confirmar, "DEFAULT_OPTION", JOptionPane.DEFAULT_OPTION, t_default, columna4, true, 4);
+		CrearOpciones(confirmar, "DEFAULT_OPTION", JOptionPane.DEFAULT_OPTION, t_default, columna4, true, 4, confirmarLamina);
 		
-		CrearOpciones(confirmar, "YES_NO_OPTION", JOptionPane.YES_NO_OPTION, t_yes_no, columna4, false, 4);
+		CrearOpciones(confirmar, "YES_NO_OPTION", JOptionPane.YES_NO_OPTION, t_yes_no, columna4, false, 4, confirmarLamina);
 		
-		CrearOpciones(confirmar, "YES_NO_CANCEL_OPTION", JOptionPane.YES_NO_CANCEL_OPTION, t_yes_no_cancel, columna4, false, 4);
+		CrearOpciones(confirmar, "YES_NO_CANCEL_OPTION", JOptionPane.YES_NO_CANCEL_OPTION, t_yes_no_cancel, columna4, false, 4, confirmarLamina);
 		
-		CrearOpciones(confirmar, "OK_CANCEL_OPTION", JOptionPane.OK_CANCEL_OPTION, t_ok_cancel, columna4, false, 4);
+		CrearOpciones(confirmar, "OK_CANCEL_OPTION", JOptionPane.OK_CANCEL_OPTION, t_ok_cancel, columna4, false, 4, confirmarLamina);
 		//----------------------------------------------
 		
 		// Caja de opciones opciones
-		CrearOpciones(opcion, "String[]", 1, t_string_arr, columna5, true, 5);
+		CrearOpciones(opcion, "String[]", 1, t_string_arr, columna5, true, 5, opcionLamina);
 		
-		CrearOpciones(opcion, "Icon[]", 2, t_icon_arr, columna5, false, 5);
+		CrearOpciones(opcion, "Icon[]", 2, t_icon_arr, columna5, false, 5, opcionLamina);
 		
-		CrearOpciones(opcion, "Object[]", 3, t_object_arr, columna5, false, 5);
+		CrearOpciones(opcion, "Object[]", 3, t_object_arr, columna5, false, 5, opcionLamina);
 		//----------------------------------------------
 		
 		// Caja de opciones entrada
-		CrearOpciones(entrada, "Campo de texto", 1, t_campo_texto, columna6, true, 6);
+		CrearOpciones(entrada, "Campo de texto", 1, t_campo_texto, columna6, true, 6, entradaLamina);
 		
-		CrearOpciones(entrada, "Combo", 2, t_combo, columna6, false, 6);
+		CrearOpciones(entrada, "Combo", 2, t_combo, columna6, false, 6, entradaLamina);
 	
 		//----------------------------------------------
-		fila1.add(columna1);
+		/*fila1.add(columna1);
 		
 		fila1.add(columna2);
 		
@@ -120,7 +116,7 @@ class MarcoCuadrosDialogo2 extends JFrame{
 		
 		fila1.add(fila2);
 		
-		add(fila1, BorderLayout.CENTER);
+		add(fila1, BorderLayout.CENTER);*/
 				
 		JButton mostrar = new JButton("Mostrar");
 		
@@ -128,9 +124,25 @@ class MarcoCuadrosDialogo2 extends JFrame{
 		
 		add(mostrar, BorderLayout.SOUTH);
 		
+		lamina_cuadricula.add(tipoLamina);
+		
+		lamina_cuadricula.add(tipoMensajeLamina);
+		
+		lamina_cuadricula.add(tipoMensajeMensajeLamina);
+		
+		lamina_cuadricula.add(tipoMensajeMensajeLamina);
+		
+		lamina_cuadricula.add(confirmarLamina);
+		
+		lamina_cuadricula.add(opcionLamina);
+		
+		lamina_cuadricula.add(entradaLamina);
+				
+		add(lamina_cuadricula);
+		
 	}
 	
-	private void CrearOpciones(ButtonGroup grupo, String rotulo, int opcion, JRadioButton radio, Box caja, boolean selected, int dialogo) {
+	private void CrearOpciones(ButtonGroup grupo, String rotulo, int opcion, JRadioButton radio, Box caja, boolean selected, int dialogo, LaminaBotones lamina) {
 						
 		radio.setText(rotulo);
 		
@@ -168,6 +180,8 @@ class MarcoCuadrosDialogo2 extends JFrame{
 		grupo.add(radio);
 				
 		caja.add(radio);
+		
+		lamina.add(caja);
 		
 		radio.addActionListener(new ActionListener() {
 			
@@ -299,16 +313,16 @@ class MarcoCuadrosDialogo2 extends JFrame{
 			
 			switch(v_tipo_dialogo) {
 				case 1:
-					JOptionPane.showMessageDialog(MarcoCuadrosDialogo2.this, mensajeObject, "Prueba", v_tipo_mensaje);
+					JOptionPane.showMessageDialog(MarcoCuadrosDialogo.this, mensajeObject, "Prueba", v_tipo_mensaje);
 					break;
 				case 2:
-					JOptionPane.showConfirmDialog(MarcoCuadrosDialogo2.this, "Confirmar dialogo", "Prueba", v_confirmar);
+					JOptionPane.showConfirmDialog(MarcoCuadrosDialogo.this, "Confirmar dialogo", "Prueba", v_confirmar);
 					break;
 				case 3:
-					JOptionPane.showOptionDialog(MarcoCuadrosDialogo2.this, "Elige", "V de opciones", JOptionPane.DEFAULT_OPTION, v_tipo_mensaje, null, opcionObject, null);
+					JOptionPane.showOptionDialog(MarcoCuadrosDialogo.this, "Elige", "V de opciones", JOptionPane.DEFAULT_OPTION, v_tipo_mensaje, null, opcionObject, null);
 					break;
 				case 4:
-					JOptionPane.showInputDialog(MarcoCuadrosDialogo2.this, "Introduce nombre", "Formulario", v_tipo_mensaje, null, entradaObject, null);
+					JOptionPane.showInputDialog(MarcoCuadrosDialogo.this, "Introduce nombre", "Formulario", v_tipo_mensaje, null, entradaObject, null);
 					break;
 			}
 		}
