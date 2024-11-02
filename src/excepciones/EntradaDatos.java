@@ -1,5 +1,7 @@
 package excepciones;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class EntradaDatos {
@@ -15,8 +17,16 @@ public class EntradaDatos {
 		
 		int decision = entrada.nextInt();
 		
-		if(decision == 1)
-			pedirDatos();
+		if(decision == 1) {
+			
+			try {
+				pedirDatos();	
+			}catch(Exception e) {
+				System.out.println("No se introdujo un número como edad");
+			}
+			
+		}
+			
 		else{
 			System.out.println("Adios");
 			
@@ -27,20 +37,29 @@ public class EntradaDatos {
 		
 	}
 	
-	static void pedirDatos() {
-		Scanner entrada = new Scanner(System.in);
+	static void pedirDatos() throws IOException {
 		
-		System.out.println("Introduce tu nombre por favor");
+		//try {
+			
+			Scanner entrada = new Scanner(System.in);
+			
+			System.out.println("Introduce tu nombre por favor");
+			
+			String nombre = entrada.nextLine();
+			
+			System.out.println("Introduce tu edad por favor");
+			
+			int edad = entrada.nextInt();
+			
+			System.out.println("Hola " + nombre + ". El año que viene tendrás " + (edad + 1) + " años");
+			
+			entrada.close();
+			
+		//}catch (InputMismatchException e) {
+			System.out.println("Los datos de la edad se encuentran mal carrgados revisa por favor");
+		//}
 		
-		String nombre = entrada.nextLine();
 		
-		System.out.println("Introduce tu edad por favor");
-		
-		int edad = entrada.nextInt();
-		
-		System.out.println("Hola " + nombre + ". El año que viene tendrás " + (edad + 1) + " años");
-		
-		entrada.close();
 		
 		System.out.println("Hemos terminado");
 	}

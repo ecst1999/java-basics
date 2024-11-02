@@ -37,21 +37,20 @@ class LaminaConImagen extends JPanel{
 	
 	public LaminaConImagen() {
 		try {
-			image = ImageIO.read(new File("src/excepciones/volcan.jpg"));	
+			image = ImageIO.read(new File("src/excepciones/volcaJn.jpg"));	
 		}catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
 		
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) throws NullPointerException {
 		
 		super.paintComponent(g);
-		
-		if(image == null)
-			g.drawString("No podemos cargar la imagen", 10, 10);
-		else {
+	
+		try {
 			
+		
 			int anchuraImagen = image.getWidth(this);
 			
 			int alturaImagen = image.getHeight(this);
@@ -65,6 +64,10 @@ class LaminaConImagen extends JPanel{
 						g.copyArea(0, 0, anchuraImagen, alturaImagen, anchuraImagen*i, alturaImagen*j);
 				}
 			}
+		}catch (NullPointerException e) {
+			
+			g.drawString("No se ha podido cargar la imagen", 10, 10);
+			
 		}
 		
 		
