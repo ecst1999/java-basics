@@ -1,6 +1,7 @@
 package programacion_generica.arraylist;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UsoEmpleado {
 
@@ -66,11 +67,12 @@ public class UsoEmpleado {
 			
 		}*/
 		
-		/*				
+		/*
 		for(Empleado e : listaEmpleados) {
 			System.out.println(e);
 		}*/
 		
+		/*
 		Empleado arrayEmpleado[] = new Empleado[listaEmpleados.size()];
 		
 		listaEmpleados.toArray(arrayEmpleado);
@@ -78,7 +80,13 @@ public class UsoEmpleado {
 		for(Empleado e: arrayEmpleado) {
 			System.out.println(e);
 		}
+		*/
 		
+		Iterator<Empleado> iterador = listaEmpleados.iterator(); 
+		
+		while(iterador.hasNext()) {
+			System.out.println(iterador.next());
+		}
 	}
 
 }
