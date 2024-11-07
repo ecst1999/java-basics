@@ -10,6 +10,12 @@ public class Pareja<T> {
 		primero = nuevoValor;
 	}
 	
+	public static void imprimirTrabajador(Pareja<? extends Empleado> p) {
+		Empleado primero = p.getPrimero();
+		
+		System.out.println(primero);
+	}
+	
 	public T getPrimero() {
 		return primero;
 	}
