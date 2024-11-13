@@ -6,25 +6,12 @@ public class SincronizandoHilos {
 		// TODO Auto-generated method stub
 		HilosVarios hilo1 = new HilosVarios();
 		
-		HilosVarios hilo2 = new HilosVarios();
-		
-		hilo1.start();
-		
-		try {
-			hilo1.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		HilosVarios2 hilo2 = new HilosVarios2(hilo1);
 		
 		hilo2.start();
 		
-		try {
-			hilo2.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		hilo1.start();
+				
 		
 		System.out.println("Terminadas las tareas");
 	}
@@ -50,4 +37,44 @@ class HilosVarios extends Thread {
 	}
 	
 }
+
+class HilosVarios2 extends Thread {
+	
+	public HilosVarios2(Thread hilo) {
+		this.hilo = hilo;
+	}
+	
+	public void run() {
+		
+		try {
+			hilo.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for(int i = 0; i<15; i++) {
+			System.out.println("Ejecutando Hilo " + getName());
+			
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	private Thread hilo;
+	
+}
+
+
+
+
+
+
+
+
 
