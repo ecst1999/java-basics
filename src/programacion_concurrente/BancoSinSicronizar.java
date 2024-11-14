@@ -4,7 +4,14 @@ public class BancoSinSicronizar {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Banco b = new Banco();
+		
+		for (int i = 0; i<100;i++) {
+			EjecucionTransferencias r = new EjecucionTransferencias(b, i, 2000);
+			Thread t = new Thread(r);
+			
+			t.start();
+		}
 	}
 
 }
@@ -19,8 +26,7 @@ class Banco {
 		for(int i = 0; i < cuentas.length; i++) {
 						
 			cuentas[i] = 2000;
-		}
-		
+		}		
 		
 	}
 	
@@ -55,3 +61,45 @@ class Banco {
 	
 	private final double[] cuentas;
 }
+
+class EjecucionTransferencias implements Runnable{
+
+	public EjecucionTransferencias(Banco b, int de, double max) {
+		banco = b;
+		delaCuenta = de;
+		cantidadMax = max;
+	}
+	
+	@Override
+	public void run() {		
+		
+		try {
+			while(true) {
+				int paraLaCuenta = (int) (100 * Math.random());
+				
+				double cantidad = cantidadMax * Math.random();
+				
+				banco.transferencia(delaCuenta, paraLaCuenta, cantidad);
+				Thread.sleep((int) (Math.random()*10));
+				
+					
+				
+							
+			}
+		} catch (InterruptedException e) { }
+	}
+	
+	private Banco banco;
+	
+	private int delaCuenta;
+	
+	private double cantidadMax;
+	
+}
+
+
+
+
+
+
+
