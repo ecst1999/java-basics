@@ -1,5 +1,9 @@
 package programacion_concurrente;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class BancoSinSicronizar {
 
 	public static void main(String[] args) {
@@ -28,22 +32,38 @@ class Banco {
 			cuentas[i] = 2000;
 		}		
 		
+		saldoSuficiente = cierreBanco.newCondition();
+		
 	}
 	
-	public void transferencia(int cuentaOrigen, int cuentaDestino, double cantidad) {
+	public void transferencia(int cuentaOrigen, int cuentaDestino, double cantidad) throws InterruptedException {
 		
-		if(cuentas[cuentaOrigen]<cantidad) return; //Evalua el saldo no sea menor a la cantidad
+		cierreBanco.lock();
 		
-		System.out.println(Thread.currentThread());
+		try {
+							
+			while(cuentas[cuentaOrigen]<cantidad) {//Evalua el saldo no sea menor a la cantidad
+				
+				saldoSuficiente.await(); // pone en espera los hilos donde no hay suficiente saldo para hacer transferencia
+				
+				//return; 
+			}
+			
+			System.out.println(Thread.currentThread());
+			
+			cuentas[cuentaOrigen] -= cantidad; // dinero que sale de la cuenta origen
+			
+			System.out.printf("%10.2f de %d para %d", cantidad, cuentaOrigen, cuentaDestino);
+			
+			cuentas[cuentaDestino] += cantidad;
+			
+			System.out.printf(" Saldo total %10.2f%n", getSaldoTotal());
+			
+			saldoSuficiente.signalAll(); // a los hilos en espera los quita para evaluar siempre y cuando se pueda hacer la transferencia
 		
-		cuentas[cuentaOrigen] -= cantidad; // dinero que sale de la cuenta origen
-		
-		System.out.printf("%10.2f de %d para %d", cantidad, cuentaOrigen, cuentaDestino);
-		
-		cuentas[cuentaDestino] += cantidad;
-		
-		System.out.printf(" Saldo total %10.2f%n", getSaldoTotal());
-		
+		}finally {
+			cierreBanco.unlock();
+		}
 	}
 	
 	public double getSaldoTotal() {
@@ -60,6 +80,10 @@ class Banco {
 	
 	
 	private final double[] cuentas;
+	
+	private Lock cierreBanco = new ReentrantLock();
+	
+	private Condition saldoSuficiente; 
 }
 
 class EjecucionTransferencias implements Runnable{
