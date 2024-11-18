@@ -1,5 +1,7 @@
 package colecciones;
 
+import java.util.Objects;
+
 public class Cliente {
 
 	public Cliente(String nombre, String n_cuenta, double saldo) {
@@ -29,6 +31,25 @@ public class Cliente {
 
 	public double getSaldo() {
 		return saldo;
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(n_cuenta);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return Objects.equals(n_cuenta, other.n_cuenta);
 	}
 
 	public void setSaldo(double saldo) {
