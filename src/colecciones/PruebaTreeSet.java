@@ -22,7 +22,7 @@ public class PruebaTreeSet {
 		
 		Articulo segundo = new Articulo(2, "Segundo artículo");
 		
-		Articulo tercero = new Articulo(3, "Tercero artículo");
+		Articulo tercero = new Articulo(3, "Este es el Tercero artículo");
 				
 						
 		TreeSet<Articulo> ordenaArticulo = new TreeSet<Articulo>();
@@ -42,7 +42,7 @@ public class PruebaTreeSet {
 		
 		Articulo comparadorArticulos = new Articulo();
 		
-		TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(comparadorArticulos); 
+		/*TreeSet<Articulo> ordenaArticulos2 = new TreeSet<Articulo>(comparadorArticulos); 
 		
 		ordenaArticulos2.add(tercero);
 		
@@ -52,6 +52,35 @@ public class PruebaTreeSet {
 		
 		for(Articulo ar: ordenaArticulos2)
 			System.out.println(ar.getDescripcion());
+			*/
+		
+		//------------------------------------------------------------------------
+		
+		System.out.println("------------------------------------------------");
+		
+		//ComparadorArticulos compara_art = new ComparadorArticulos();
+		
+		TreeSet<Articulo> ordenaArticulos3 = new TreeSet<Articulo>(new Comparator<Articulo>() {
+			
+			public int compare(Articulo a1, Articulo a2) {
+				// TODO Auto-generated method stub
+				String descripcionA = a1.getDescripcion();
+				
+				String descripcionB = a2.getDescripcion();
+				
+				return descripcionA.compareTo(descripcionB);
+			}
+		});
+		
+		ordenaArticulos3.add(tercero);
+		
+		ordenaArticulos3.add(primero);
+		
+		ordenaArticulos3.add(segundo);
+		
+		for(Articulo art: ordenaArticulos3) 
+			System.out.println(art.getDescripcion());
+		
 		
 	}
 	
@@ -59,7 +88,7 @@ public class PruebaTreeSet {
 }
 
 
-class Articulo implements Comparable<Articulo>, Comparator<Articulo>{
+class Articulo implements Comparable<Articulo> {//, Comparator<Articulo>{
 	
 	public Articulo() {
 		
@@ -83,7 +112,7 @@ class Articulo implements Comparable<Articulo>, Comparator<Articulo>{
 	private int numero_articulo;
 	
 	private String descripcion;
-
+	/*
 	@Override
 	public int compare(Articulo a1, Articulo a2) {
 		// TODO Auto-generated method stub
@@ -92,6 +121,25 @@ class Articulo implements Comparable<Articulo>, Comparator<Articulo>{
 		String descripcionB = a2.descripcion;
 		
 		return descripcionA.compareTo(descripcionB);
+	}*/
+	
+}
+
+class ComparadorArticulos implements Comparator<Articulo>{
+
+	@Override
+	public int compare(Articulo a1, Articulo a2) {
+		// TODO Auto-generated method stub
+		String descripcionA = a1.getDescripcion();
+		
+		String descripcionB = a2.getDescripcion();
+		
+		return descripcionA.compareTo(descripcionB);
 	}
 	
 }
+
+
+
+
+
