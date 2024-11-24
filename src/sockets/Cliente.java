@@ -3,6 +3,8 @@ package sockets;
 import java.awt.event.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 import javax.swing.*;
 import java.net.*;
@@ -38,9 +40,21 @@ class LaminaMarcoCliente extends JPanel{
 
 	public LaminaMarcoCliente() {
 		
-		JLabel texto = new JLabel("Cliente");
+		nick = new JTextField(5);
+		
+		add(nick);
+		
+		JLabel texto = new JLabel("- Chat- ");
 		
 		add(texto);
+		
+		ip = new JTextField(8);
+		
+		add(ip);
+		
+		campoChat = new JTextArea(12, 20);
+		
+		add(campoChat);
 		
 		campo1 = new JTextField(20);
 		
@@ -62,11 +76,25 @@ class LaminaMarcoCliente extends JPanel{
 			try {
 				Socket miSocket = new Socket("192.168.100.20", 4000);
 				
-				DataOutputStream flujoSalida = new DataOutputStream(miSocket.getOutputStream());
+				PaqueteEnvio datos = new PaqueteEnvio();
+				
+				datos.setNick(nick.getText());
+				
+				datos.setIp(ip.getText());
+				
+				datos.setMensaje(campo1.getText());
+				
+				ObjectOutputStream paqueteDatos = new ObjectOutputStream(miSocket.getOutputStream());
+				
+				paqueteDatos.writeObject(datos);
+				
+				miSocket.close();
+				
+				/*DataOutputStream flujoSalida = new DataOutputStream(miSocket.getOutputStream());
 				
 				flujoSalida.writeUTF(campo1.getText());
 				
-				flujoSalida.close();
+				flujoSalida.close();*/
 				
 			} catch (UnknownHostException e1) {
 				// TODO Auto-generated catch block
@@ -80,9 +108,47 @@ class LaminaMarcoCliente extends JPanel{
 		
 	}
 	
-	private JTextField campo1;
+	private JTextField campo1, nick, ip;
 	
 	private JButton miboton;
+	
+	private JTextArea campoChat;
+		
 }
+
+
+class PaqueteEnvio implements Serializable {
+		
+	private static final long serialVersionUID = -8400872870842477865L;
+	
+	private String nick, ip, mensaje;
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+}
+
+
+
 
 
