@@ -1,5 +1,8 @@
 package sockets;
 
+import java.awt.BorderLayout;
+import java.io.*;
+import java.net.*;
 import javax.swing.*;
 
 public class Servidor {
@@ -16,18 +19,59 @@ public class Servidor {
 }
 
 
-class MarcoServidor extends JFrame{
+class MarcoServidor extends JFrame implements Runnable{
 	
 	public MarcoServidor() {
 		
-		setBounds(600, 300, 280, 350);
+		setBounds(1200, 300, 280, 350);
 		
 		setTitle("Servidor");
 		
-		add(new LaminaMarcoServidor());
+		JPanel miLamina = new JPanel();
+		
+		miLamina.setLayout(new BorderLayout());
+		
+		areaTexto = new JTextArea();
+		
+		miLamina.add(areaTexto, BorderLayout.CENTER);
+		
+		add(miLamina);
+		
+		Thread hilo = new Thread(this);
+		
+		hilo.start();
+	}
+	
+	private JTextArea areaTexto;
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+		try {
+			ServerSocket servidor = new ServerSocket(4000);
+			
+			while(true) {
+				
+				Socket misocket = servidor.accept(); 
+				
+				DataInputStream flujoEntrada = new DataInputStream(misocket.getInputStream());
+				
+				String mensajeTexto = flujoEntrada.readUTF();
+				
+				areaTexto.append("\n" + mensajeTexto);
+				
+				misocket.close();
+			}
+			
+			
+					
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
 
-class LaminaMarcoServidor extends JPanel{
-	
-}
+
+
