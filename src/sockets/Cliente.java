@@ -3,6 +3,7 @@ package sockets;
 import java.awt.event.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
@@ -36,7 +37,7 @@ class MarcoCliente extends JFrame{
 	
 }
 
-class LaminaMarcoCliente extends JPanel{
+class LaminaMarcoCliente extends JPanel implements Runnable{
 
 	public LaminaMarcoCliente() {
 		
@@ -65,6 +66,10 @@ class LaminaMarcoCliente extends JPanel{
 		miboton.addActionListener(new EnviaTexto());
 		
 		add(miboton);
+		
+		Thread mihilo = new Thread(this);
+		
+		mihilo.start();
 	}
 	
 	private class EnviaTexto implements ActionListener{
@@ -113,6 +118,33 @@ class LaminaMarcoCliente extends JPanel{
 	private JButton miboton;
 	
 	private JTextArea campoChat;
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			
+			ServerSocket servidorCliente = new ServerSocket(8000);
+			
+			Socket cliente;
+			
+			PaqueteEnvio paqueteRecibido;
+			
+			while(true) {
+				
+				cliente = servidorCliente.accept();
+				
+				ObjectInputStream flujoEntrada = new ObjectInputStream(cliente.getInputStream());
+				
+				paqueteRecibido = (PaqueteEnvio) flujoEntrada.readObject();
+				
+				campoChat.append("\n " + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje() );
+			}
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 		
 }
 
