@@ -41,15 +41,29 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 
 	public LaminaMarcoCliente() {
 		
-		nick = new JTextField(5);
+		String nick_usuario = JOptionPane.showInputDialog("Nick: ");
+		
+		JLabel n_nick = new JLabel("Nick: ");
+		
+		add(n_nick);
+		
+		nick = new JLabel();
+		
+		nick.setText(nick_usuario);
 		
 		add(nick);
 		
-		JLabel texto = new JLabel("- Chat- ");
+		JLabel texto = new JLabel(" Online: ");
 		
 		add(texto);
 		
-		ip = new JTextField(8);
+		ip = new JComboBox();
+		
+		ip.addItem("Usuario 1");
+		
+		ip.addItem("Usuario 2");
+		
+		ip.addItem("Usuario 3");
 		
 		add(ip);
 		
@@ -76,6 +90,8 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			campoChat.append("\n" + campo1.getText());
 			// TODO Auto-generated method stub
 
 			try {
@@ -85,7 +101,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				
 				datos.setNick(nick.getText());
 				
-				datos.setIp(ip.getText());
+				datos.setIp(ip.getSelectedItem().toString());
 				
 				datos.setMensaje(campo1.getText());
 				
@@ -113,7 +129,11 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		
 	}
 	
-	private JTextField campo1, nick, ip;
+	private JTextField campo1;
+	
+	private JLabel nick;
+	
+	private JComboBox ip;
 	
 	private JButton miboton;
 	
@@ -124,7 +144,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		// TODO Auto-generated method stub
 		try {
 			
-			ServerSocket servidorCliente = new ServerSocket(8000);
+			ServerSocket servidorCliente = new ServerSocket(4020);
 			
 			Socket cliente;
 			
