@@ -33,6 +33,35 @@ class MarcoCliente extends JFrame{
 		setTitle("Cliente");
 		
 		add(new LaminaMarcoCliente());
+		
+		addWindowListener(new EnvioOnline());
+	}
+	
+}
+
+//-------------------ENVIO DE SEÑAL ONLINE---------------------
+class EnvioOnline extends WindowAdapter{
+	
+	public void windowOpened(WindowEvent e) {
+		
+		try {
+			
+			Socket miSocket = new Socket("192.168.100.20", 4000);
+			
+			PaqueteEnvio datos = new PaqueteEnvio();
+			
+			datos.setMensaje("Online");
+			
+			ObjectOutputStream par = new ObjectOutputStream(miSocket.getOutputStream());
+			
+			par.writeObject(datos);
+			
+			par.close();
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 	
 }
@@ -58,12 +87,17 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		add(texto);
 		
 		ip = new JComboBox();
-		
+		/*
 		ip.addItem("Usuario 1");
 		
 		ip.addItem("Usuario 2");
 		
 		ip.addItem("Usuario 3");
+		*/
+		
+		ip.addItem("192.168.100.42");
+		
+		ip.addItem("192.168.100.20");
 		
 		add(ip);
 		

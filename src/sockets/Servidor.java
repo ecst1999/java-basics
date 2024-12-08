@@ -59,6 +59,8 @@ class MarcoServidor extends JFrame implements Runnable{
 				
 				Socket misocket = servidor.accept(); 
 				
+				
+				
 				ObjectInputStream paqueteDatos = new ObjectInputStream(misocket.getInputStream());
 				
 				paqueteRecibido = (PaqueteEnvio)  paqueteDatos.readObject();
@@ -75,19 +77,35 @@ class MarcoServidor extends JFrame implements Runnable{
 				
 				areaTexto.append("\n" + mensajeTexto);*/
 				
-				areaTexto.append("\n" + nick + ": "  + mensaje + " para " + ip);
+				if(!mensaje.equals("Online")) {
+					
+					areaTexto.append("\n" + nick + ": "  + mensaje + " para " + ip);
+					
+					Socket enviaDestinatario = new Socket(ip, 4020);
+					
+					ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+					
+					paqueteReenvio.writeObject(paqueteRecibido);
+					
+					paqueteReenvio.close();
+					
+					enviaDestinatario.close();
+					
+					misocket.close();
+					
+				}else {
+					//-----------------Detecta online----------------
+					
+					InetAddress localizacion = misocket.getInetAddress();
+					
+					String ipRemota = localizacion.getHostAddress();
+					
+					System.out.println("Online: " + ipRemota);
+					
+					//------------------------------------------------
+				}
 				
-				Socket enviaDestinatario = new Socket(ip, 4020);
 				
-				ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
-				
-				paqueteReenvio.writeObject(paqueteRecibido);
-				
-				paqueteReenvio.close();
-				
-				enviaDestinatario.close();
-				
-				misocket.close();
 			}
 						
 					
