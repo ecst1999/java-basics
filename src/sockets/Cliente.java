@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import javax.swing.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class Cliente {
 
@@ -208,6 +209,16 @@ class PaqueteEnvio implements Serializable {
 	private static final long serialVersionUID = -8400872870842477865L;
 	
 	private String nick, ip, mensaje;
+	
+	private ArrayList<String> Ips;
+
+	public ArrayList<String> getIps() {
+		return Ips;
+	}
+
+	public void setIps(ArrayList<String> ips) {
+		Ips = ips;
+	}
 
 	public String getNick() {
 		return nick;

@@ -3,6 +3,8 @@ package sockets;
 import java.awt.BorderLayout;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Servidor {
@@ -53,13 +55,13 @@ class MarcoServidor extends JFrame implements Runnable{
 			
 			String nick, ip, mensaje;
 			
+			ArrayList<String> listaIps = new ArrayList<String>();
+			
 			PaqueteEnvio paqueteRecibido;
 			
 			while(true) {
 				
-				Socket misocket = servidor.accept(); 
-				
-				
+				Socket misocket = servidor.accept(); 							
 				
 				ObjectInputStream paqueteDatos = new ObjectInputStream(misocket.getInputStream());
 				
@@ -98,9 +100,15 @@ class MarcoServidor extends JFrame implements Runnable{
 					
 					InetAddress localizacion = misocket.getInetAddress();
 					
-					String ipRemota = localizacion.getHostAddress();
+					String ipRemota = localizacion.getHostAddress();										
 					
-					System.out.println("Online: " + ipRemota);
+					listaIps.add(ipRemota);
+					
+					paqueteRecibido.setIps(listaIps);
+					
+					for(String z: listaIps) {
+						System.out.println("Array: " + z);
+					}
 					
 					//------------------------------------------------
 				}
