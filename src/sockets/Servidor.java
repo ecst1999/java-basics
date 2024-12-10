@@ -108,6 +108,16 @@ class MarcoServidor extends JFrame implements Runnable{
 					
 					for(String z: listaIps) {
 						System.out.println("Array: " + z);
+						
+						Socket enviaDest = new Socket(z, 4020);
+						
+						ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDest.getOutputStream());
+						
+						paqueteReenvio.writeObject(paqueteRecibido);
+						
+						paqueteReenvio.close();
+						
+						enviaDest.close();
 					}
 					
 					//------------------------------------------------
