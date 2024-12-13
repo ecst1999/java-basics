@@ -11,7 +11,7 @@ public class Conecta_prueba {
 		try {
 			
 			//1. Crear conexión
-			Connection mi_coneccion = DriverManager.getConnection("jdbc:mysql://localhost:3306/invitaciones", "root", "AtLsV2024*adm");
+			Connection mi_coneccion = DriverManager.getConnection("jdbc:mysql://localhost:3306/invitaciones", "root", "12345");
 			
 			//2. Crear objeto Statement			
 			Statement mi_statement = mi_coneccion.createStatement();
