@@ -3,6 +3,9 @@ package bbdd_jdbc.conectabd.mvc.vista;
 import java.awt.*;
 import javax.swing.*;
 
+import bbdd_jdbc.conectabd.mvc.controlador.ControladorBotonEjecuta;
+import bbdd_jdbc.conectabd.mvc.controlador.ControladorCargaMenus;
+
 public class MarcoAplicacion extends JFrame {
 
 	public MarcoAplicacion() {
@@ -47,12 +50,16 @@ public class MarcoAplicacion extends JFrame {
 		
 		add(botonConsulta, BorderLayout.SOUTH);
 		
+		botonConsulta.addActionListener(new ControladorBotonEjecuta(this));
+		
+		addWindowListener(new ControladorCargaMenus(this));
+		
 	}
 	
-	private JComboBox secciones;
+	public JComboBox secciones;
 	
-	private JComboBox paises;
+	public JComboBox paises;
 	
-	private JTextArea resultado;	
+	public JTextArea resultado;	
 	
 }
