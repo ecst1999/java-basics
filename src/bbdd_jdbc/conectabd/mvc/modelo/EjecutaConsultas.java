@@ -2,23 +2,51 @@ package bbdd_jdbc.conectabd.mvc.modelo;
 
 import java.sql.*;
 
-public class EjecutaConsultas {
+import bbdd_jdbc.conectabd.mvc.controlador.ConectorDB;
 
-	public String filtrarBBDD(String seccion, String pais) {
+public class EjecutaConsultas {
+	
+	public EjecutaConsultas() {
+		miConexion = new ConectorDB();
+	}
+
+	public ResultSet filtrarBBDD(String seccion, String pais) {
 		
-		pruebas = "";
+		Connection conecta = miConexion.dameConexion();
 		
-		if(!seccion.equals("Todos") && pais.equals("Todos")) {
-			pruebas = "Has escogido sección";
-		}else if(seccion.equals("Todos") && !pais.equals("Todos")) {
-			pruebas = "Has escogido país";
-		}else {
-			pruebas = "Has escogido ambas ";
+		rs = null;
+		
+		try {
+			
+			if(!seccion.equals("Todos") && pais.equals("Todos")) {
+				
+				enviaConsultaSeccion = conecta.prepareStatement(consultaSeccion);
+				
+				enviaConsultaSeccion.setString(1, seccion);
+				
+				rs = enviaConsultaSeccion.executeQuery();
+			
+			}else if(seccion.equals("Todos") && !pais.equals("Todos")) {
+			
+			}else {
+			
+			}
+			
+		}catch(Exception e) {
+			
 		}
 		
-		return pruebas;
+		
+		return rs;
+		
 	}
 	
-	private String pruebas;
+	private ConectorDB miConexion;
+	
+	private ResultSet rs;
+	
+	private PreparedStatement enviaConsultaSeccion;
+	
+	private final String consultaSeccion = "SELECT seccion, nombre_articulo, precio, pais_origen FROM productos WHERE seccion = ?";
 	
 }
