@@ -27,9 +27,23 @@ public class EjecutaConsultas {
 				rs = enviaConsultaSeccion.executeQuery();
 			
 			}else if(seccion.equals("Todos") && !pais.equals("Todos")) {
+				
+				enviaConsultaPais = conecta.prepareStatement(consultaPais);
+				
+				enviaConsultaPais.setString(1, pais);
+				
+				rs = enviaConsultaPais.executeQuery();
 			
 			}else {
 			
+				enviaConsultaTodos = conecta.prepareStatement(consultaTodos);
+				
+				enviaConsultaTodos.setString(1, seccion);
+				
+				enviaConsultaTodos.setString(2, pais);
+				
+				rs = enviaConsultaTodos.executeQuery();
+				
 			}
 			
 		}catch(Exception e) {
@@ -45,8 +59,12 @@ public class EjecutaConsultas {
 	
 	private ResultSet rs;
 	
-	private PreparedStatement enviaConsultaSeccion;
+	private PreparedStatement enviaConsultaSeccion, enviaConsultaPais, enviaConsultaTodos;
 	
 	private final String consultaSeccion = "SELECT seccion, nombre_articulo, precio, pais_origen FROM productos WHERE seccion = ?";
+	
+	private final String consultaPais = "SELECT seccion, nombre_articulo, precio, pais_origen FROM productos WHERE pais_origen = ?";
+	
+	private final String consultaTodos = "SELECT seccion, nombre_articulo, precio, pais_origen FROM productos WHERE seccion = ? AND pais_origen = ?";
 	
 }
